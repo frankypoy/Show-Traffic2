@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //Sound Effect
-                MediaPlayer mediaPlayer = MediaPlayer.create(getBaseContext(), R.raw.dog);
+                MediaPlayer mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.dog);
                 mediaPlayer.start();
 
                 //Go to Web View
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         //ListView Controller
         //Setup Array Type Easy
-        int[] iconInts = new int[20];
+        final int[] iconInts = new int[20];
         iconInts[0] = R.drawable.traffic_01;
         iconInts[1] = R.drawable.traffic_02;
         iconInts[2] = R.drawable.traffic_03;
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         iconInts[19] = R.drawable.traffic_20;
 
         //Setup Array from XML (value -> my_data.xml)
-        String[] titleStrings = getResources().getStringArray(R.array.title);
-        String[] detailLongStrings = getResources().getStringArray(R.array.detailM);
+        final String[] titleStrings = getResources().getStringArray(R.array.title);
+        final String[] detailLongStrings = getResources().getStringArray(R.array.detailM);
 
 
         //การตัดคำให้มันโชว์หน้าแรกแค่ 30 ตัวอักษร
@@ -83,6 +84,19 @@ public class MainActivity extends AppCompatActivity {
         //Create ListView
         TrafficAdapter trafficAdapter = new TrafficAdapter(this,iconInts,titleStrings,detailShortStrings);
         listView.setAdapter(trafficAdapter);
+
+        //Active When Click ListView
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("Title", titleStrings[i]); //ส่งค่า
+                intent.putExtra("Icon", iconInts[i]);
+                intent.putExtra("Detail", detailLongStrings[i]);
+                startActivity(intent);
+            }
+        });
+
 
 
     } //Main Method

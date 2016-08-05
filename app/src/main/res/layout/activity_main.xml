@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:text="About Me"
         android:id="@+id/button"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:textStyle="bold" />
 
     <ListView
         android:layout_width="wrap_content"
